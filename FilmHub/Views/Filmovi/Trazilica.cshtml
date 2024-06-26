@@ -1,0 +1,57 @@
+﻿@{
+    ViewBag.Title = "Pretraži naslove";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - FilmHub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .search-form .input-group {
+            width: 100%;
+        }
+
+        .search-form .form-control {
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        .search-form .btn {
+            border-radius: 0;
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
+
+            .search-form .btn:hover {
+                background-color: #5a6268;
+                border-color: #545b62;
+            }
+
+            .search-form .btn i {
+                margin-right: 0;
+            }
+    </style>
+</head>
+<body>
+    <h2><strong>@ViewBag.Title</strong></h2>
+
+    <p>Ovdje možete pretraživati naslove filmova.</p>
+
+    @using (Html.BeginForm("Popis", "Filmovi", FormMethod.Get, new { @class = "form-inline mb-4 search-form" }))
+    {
+        <div class="form-group mr-2">
+            <div class="input-group">
+                <input type="text" id="naziv" name="naziv" class="form-control" placeholder="Unesi pojam za pretraživanje" aria-label="Unesi pojam za pretraživanje" aria-describedby="search-icon">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-secondary">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    }
+</body>
+</html>

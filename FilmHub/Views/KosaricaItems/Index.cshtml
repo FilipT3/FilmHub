@@ -1,0 +1,58 @@
+﻿@using FilmHub.Models
+@model IEnumerable<Favoriti>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Košarica</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Naslov)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Kategorija)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Godina)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Naslov)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Kategorija)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Godina)
+            </td>
+
+            <td>
+                @Html.ActionLink("Izbrisi", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
+
+
+</table>
+<div style="display:flex; flex-flow:row">
+    <a href="@Url.Action("IspisFavorita", "PopisFavorita", new {Naslov = ViewBag.Naslov, Kategorija = ViewBag.Kategorija, Godina = ViewBag.Godina})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-print" aria-hidden="true"></span>Ispis
+    </a>
+    <a href="@Url.Action("Index", "Home")" class="btn btn-secondary">
+        <span class="glyphicon glyphicon-print" aria-hidden="true"></span>Natrag na popis filmova
+    </a>
+    <a href="@Url.Action("ObrisiKosaricu", "PopisFavorita")" class="btn btn-danger">
+        <span class="glyphicon glyphicon-print" aria-hidden="true"></span>Obriši favorite
+    </a>
+</div>
+

@@ -1,0 +1,189 @@
+﻿@using FilmHub.Models
+@model IEnumerable<Film>
+
+@{
+    ViewBag.Title = "Popis filmova";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    AjaxOptions ajaxOpt = new AjaxOptions()
+    {
+        UpdateTargetId = "popisFilmova",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "GET",
+        OnBegin = "LoadingRow"
+    };
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4"><strong>Popularni filmovi</strong></h2>
+
+    @if (ViewBag.Poruka != null)
+    {
+        <div class="alert alert-info">@ViewBag.Poruka</div>
+    }
+    else
+    {
+        <div class="film-list">
+            @foreach (var film in Model)
+            {
+                <div class="film-item card mb-4 shadow-sm" onclick="location.href='@Url.Action("Detalji", "Filmovi", new { id = film.Id })'">
+                    <div class="card-body">
+                        <h3 class="card-title"><strong>@film.Naslov</strong></h3>
+                        <br />
+                        <p class="card-text"><strong>Produkcija:</strong> @film.Produkcija</p>
+                        <p class="card-text"><strong>Kategorija:</strong> @film.Kategorija</p>
+                        <p class="card-text"><strong>Trajanje:</strong> @film.Trajanje min</p>
+                        <p class="card-text"><strong>Godina:</strong> @film.Godina</p>
+
+                        <div class="button-group @((User.Identity.IsAuthenticated && ((User as FilmHub.Misc.LogiraniKorisnik).IsInRole(FilmHub.Misc.OvlastiKorisnik.Administrator))) ? "admin-buttons" : "non-admin-buttons")">
+                            @if (User.Identity.IsAuthenticated && ((User as FilmHub.Misc.LogiraniKorisnik).IsInRole(FilmHub.Misc.OvlastiKorisnik.Administrator)))
+                            {
+                                @Html.ActionLink("Ažuriraj", "Azuriraj", new { id = film.Id }, new { @class = "btn btn-warning btn-outline" })
+                                @Html.ActionLink("Izbriši", "Brisi", new { id = film.Id }, new { @class = "btn btn-danger btn-outline" })
+                            }
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <a href="@Url.Action("DodajUKosaricu", "KosaricaItems", new { id = film.Id })" class="btn btn-heart btn-outline"><i class="fas fa-heart"></i></a>
+                            }
+                            else
+                            {
+                                <a href="@Url.Action("Prijava", "Korisnici")" class="btn btn-heart btn-outline"><i class="fas fa-heart"></i></a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+<style>
+    .film-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .film-item {
+        border: none;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Increased shadow for better emphasis */
+        box-sizing: border-box;
+        transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+        background: linear-gradient(to bottom right, #ffffff, #f0f0f0); /* Gradient background */
+        cursor: pointer;
+        width: calc(33.333% - 20px); /* Fixed width for all cards */
+    }
+
+        .film-item:hover {
+            transform: translateY(-5px); /* Lift the card slightly on hover */
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* Increase shadow on hover */
+        }
+
+        .film-item .card-body {
+            padding: 1.5rem;
+        }
+
+    .button-group {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .admin-buttons {
+        justify-content: flex-start;
+    }
+
+    .non-admin-buttons {
+        justify-content: flex-end;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 10px 15px;
+        text-decoration: none;
+        border-radius: 5px;
+        text-align: center;
+        transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        border: 2px solid transparent;
+    }
+
+    .btn-info {
+        background-color: #17a2b8;
+        border-color: #17a2b8;
+        color: white;
+    }
+
+    .btn-warning {
+        background-color: #ffc107;
+        border-color: #ffc107;
+        color: white;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        border-color: #dc3545;
+        color: white;
+    }
+
+    .btn-heart {
+        background-color: #ff4d4d; /* Red background */
+        color: white;
+        border-color: #ff4d4d;
+    }
+
+        .btn-heart i {
+            margin-right: 0; /* No margin for icon */
+        }
+
+    .btn:hover {
+        background-color: white;
+        color: inherit;
+        border-color: currentColor;
+    }
+
+    .btn-info:hover {
+        color: #17a2b8;
+    }
+
+    .btn-warning:hover {
+        color: #ffc107;
+    }
+
+    .btn-danger:hover {
+        color: #dc3545;
+    }
+
+    .btn-heart:hover {
+        color: #ff4d4d;
+    }
+
+    .btn-lg {
+        padding: 15px 25px;
+        font-size: 1.25rem;
+    }
+
+    .btn-outline {
+        border: 2px solid currentColor;
+    }
+
+    .form-inline .form-group {
+        margin-right: 10px;
+    }
+
+    .form-inline .form-control {
+        width: 300px; /* adjust the width as needed */
+        display: inline-block;
+    }
+
+    .form-inline .input-group-append {
+        position: relative;
+        top: -1px;
+    }
+
+    .alert {
+        margin-top: 20px;
+    }
+</style>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />

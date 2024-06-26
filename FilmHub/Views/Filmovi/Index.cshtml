@@ -1,0 +1,70 @@
+﻿@{
+    ViewBag.Title = "Početna stranica";
+}
+
+<div class="jumbotron text-center">
+    <h1 class="display-4">FilmHub</h1>
+    <p class="lead">Stanica za besplatno gledanje filmova</p>
+    <hr class="my-4">
+    <p>Pridružite nam se i uživajte u neograničenom sadržaju.</p>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title">Pregled filmova</h2>
+                    <p class="card-text">Pregled svih filmova na jednom mjestu.</p>
+                    <p>@Html.ActionLink("Pregled", "Popis", "Filmovi", null, new { @class = "btn btn-primary" })</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title">Pretraga filmova</h2>
+                    <p class="card-text">Pretraži filmove koji te zanimaju u samo par sekundi.</p>
+                    <p>@Html.ActionLink("Pretraži", "Trazilica", "Filmovi", null, new { @class = "btn btn-success" })</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .jumbotron {
+        background-color: #343a40;
+        color: white;
+        padding: 2rem 1rem;
+        margin-bottom: 2rem;
+        border-radius: 0.3rem;
+    }
+
+    .card {
+        border: none;
+        border-radius: 0.5rem;
+    }
+
+    .card-body {
+        padding: 1.5rem;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        border: none;
+    }
+
+    .shadow-sm {
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    }
+
+    .my-4 {
+        margin: 1.5rem 0;
+    }
+</style>

@@ -1,0 +1,42 @@
+﻿@model IEnumerable<FilmHub.Models.Korisnik>
+
+@{
+    ViewBag.Title = "Prikaz korisnika";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Pretpostavka da koristite Layout za celu aplikaciju
+}
+
+<h2>Prikaz korisnika</h2>
+
+<p>
+    @Html.ActionLink("Kreiraj novog korisnika", "Create", null, new { @class = "btn btn-primary" })
+</p>
+
+<div class="table-responsive">
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Ovlast</th>
+                <th>Email</th>
+                <th>Prezime</th>
+                <th>Ime</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Ovlast.Naziv)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Prezime)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Ime)</td>
+                    <td>
+                        @Html.ActionLink("Uredi", "Edit", new { id = item.KorisnickoIme }, new { @class = "btn btn-primary btn-sm" })
+                        @Html.ActionLink("Detalji", "Details", new { id = item.KorisnickoIme }, new { @class = "btn btn-info btn-sm" })
+                        @Html.ActionLink("Obriši", "Delete", new { id = item.KorisnickoIme }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Da li ste sigurni da želite obrisati ovog korisnika?');" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

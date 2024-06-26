@@ -1,0 +1,34 @@
+﻿@using FilmHub.Models
+@model Film
+@{
+    ViewBag.Title = "Detalji";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <h2>@Model.Naslov</h2>
+    <br />
+
+    <p><strong>Kategorija:</strong> @Model.Kategorija</p>
+    <p><strong>Produkcija:</strong> @Model.Produkcija</p>
+    <p><strong>Trajanje:</strong> @Model.Trajanje</p>
+    <p><strong>Godina:</strong> @Model.Godina</p>
+    <p><strong>Glavni glumci:</strong> @Model.Glumci</p>
+    <p><strong>Opis:</strong> @Model.Opis</p>
+
+    <a href="@Url.Action("Popis", "Filmovi")" class="btn btn-primary mt-3">Povratak na popis filmova</a>
+</div>
+
+<style>
+    .container {
+        margin-top: 20px;
+    }
+
+    h2, h4 {
+        margin-bottom: 10px;
+    }
+
+    p {
+        margin-bottom: 5px;
+    }
+</style>

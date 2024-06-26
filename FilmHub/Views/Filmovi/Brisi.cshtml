@@ -1,0 +1,37 @@
+﻿@using FilmHub.Models
+@model Film
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <h2>@ViewBag.Title</h2>
+
+    <p class="confirmation-message">Jeste li sigurni da želite obrisati film <strong>@Model.Naslov</strong>?</p>
+
+    @using (Html.BeginForm("Brisi", "Filmovi", FormMethod.Post, new { @class = "delete-form" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <button type="submit" class="btn btn-danger">Izbriši</button> @Html.ActionLink("Odustani", "Popis", null, new { @class = "btn btn-secondary" })
+        <br />
+        <br />
+
+    }
+</div>
+
+<style>
+    .confirmation-message {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+
+    .delete-form {
+        display: inline-block;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        margin-right: 10px;
+    }
+</style>

@@ -1,0 +1,45 @@
+﻿@model FilmHub.Models.Favoriti
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h3>Jeste li sigurni da zelite obrisati ovaj film iz favorita?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Naslov)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Naslov)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Kategorija)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Kategorija)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Godina)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Godina)
+        </dd>
+
+    </dl>
+    </div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Izbrisi" class="btn btn-danger" /> |
+            @Html.ActionLink("Natrag", "Index", null, new { @class = "btn btn-secondary" })
+        </div>
+    }

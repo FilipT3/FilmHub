@@ -7,6 +7,9 @@
     <title>@ViewBag.Title - FilmHub</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
+
 </head>
 <body>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
@@ -39,9 +42,9 @@
                     }
                     else
                     {
-                        <li>@Html.ActionLink("Prijava", "Prijava", "Korisnici", new { area = "" }, new { @class = "nav-link" })</li>
-                        /*<li>@Html.ActionLink("Registracija", "Register", "Korisnici", new { area = "" }, new { @class = "nav-link" })</li>
-                    }*/
+                        <li>
+                            @Html.Raw($"<a href='{Url.Action("Prijava", "Korisnici")}' class='nav-link'><i class='bi bi-person'></i></a>")
+                        </li>
                     }
                 </ul>
             </div>

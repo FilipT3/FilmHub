@@ -9,5 +9,6 @@ namespace FilmHub.Misc
     {
         public const string Administrator = "AD";
         public const string Moderator = "MOD";
+        public const string Korisnik = "KOR";
     }
 }

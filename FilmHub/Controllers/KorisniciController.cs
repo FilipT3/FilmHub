@@ -20,40 +20,9 @@ namespace FilmHub.Controllers
         // GET: Korisnici
         public ActionResult Index()
         {
-            var listaKorisnika = bazaPodataka.PopisKorisnika.OrderBy(x => x.SifraOvlasti).ThenBy(x => x.Prezime).ToList();
+            var listaKorisnika = bazaPodataka.PopisKorisnika.
+                OrderBy(x => x.SifraOvlasti).ThenBy(x => x.Prezime).ToList();
             return View(listaKorisnika);
-        }
-
-        [HttpGet]
-        [AllowAnonymous]
-        public ActionResult Register()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public ActionResult Register(RegisterViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var korisnik = new Korisnik
-                {
-                    KorisnickoIme = model.KorisnickoIme,
-                    Email = model.Email,
-                    Lozinka = Misc.PasswordHelper.IzracunajHash(model.Lozinka),
-                    Prezime = model.Prezime,
-                    Ime = model.Ime,
-                    SifraOvlasti = "KOR" // Pretpostavljamo da su novi korisnici "Moderator"
-                };
-
-                bazaPodataka.PopisKorisnika.Add(korisnik);
-                bazaPodataka.SaveChanges();
-                return RedirectToAction("Prijava");
-            }
-
-            return View(model);
         }
 
 
@@ -73,30 +42,41 @@ namespace FilmHub.Controllers
         {
             if (ModelState.IsValid)
             {
+                //dohvaćamo podatke o korisniku po korisničkom imenu
                 var korisnikBaza = bazaPodataka.PopisKorisnika.FirstOrDefault(x => x.KorisnickoIme == model.KorisnickoIme);
-                if (korisnikBaza != null)
+                //provjeravamo hash lozinke iz baze i izračunati hash na temelju upisane lozinke na login formi
+                bool passwordOK = korisnikBaza.Lozinka == Misc.PasswordHelper.IzracunajHash(model.Lozinka);
+
+                if (passwordOK)
                 {
-                    var passwordOK = korisnikBaza.Lozinka == Misc.PasswordHelper.IzracunajHash(model.Lozinka);
-                    if (passwordOK)
-                    {
-                        LogiraniKorisnik prijavljeniKorisnik = new LogiraniKorisnik(korisnikBaza);
-                        LogiraniKorisnikSerializeModel serializeModel = new LogiraniKorisnikSerializeModel();
-                        serializeModel.CopyFromUser(prijavljeniKorisnik);
-                        JavaScriptSerializer serializer = new JavaScriptSerializer();
-                        string korisnickiPodaci = serializer.Serialize(serializeModel);
-                        FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(1, prijavljeniKorisnik.Identity.Name, DateTime.Now, DateTime.Now.AddDays(1), false, korisnickiPodaci);
-                        string tickedEncrypted = FormsAuthentication.Encrypt(authTicket);
-                        HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, tickedEncrypted);
-                        Response.Cookies.Add(cookie);
-                        if (!String.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
-                        {
-                            return Redirect(returnUrl);
-                        }
-                        return RedirectToAction("Index", "Home");
-                    }
+                    LogiraniKorisnik prijavljeniKorisnik = new LogiraniKorisnik(korisnikBaza);
+                    LogiraniKorisnikSerializeModel serializeModel = new LogiraniKorisnikSerializeModel();
+                    serializeModel.CopyFromUser(prijavljeniKorisnik);
+                    JavaScriptSerializer serializer = new JavaScriptSerializer();
+                    string korisnickiPodaci = serializer.Serialize(serializeModel);
+
+                    FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(
+                        1,
+                        prijavljeniKorisnik.Identity.Name,
+                        DateTime.Now,
+                        DateTime.Now.AddDays(1),
+                        false,
+                        korisnickiPodaci);
+
+                    string ticketEncrypted = FormsAuthentication.Encrypt(authTicket);
+                    HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName,
+                        ticketEncrypted);
+                    Response.Cookies.Add(cookie);
+
+                    //ako postoji url kojem je korisnik prvotno pristupao tada preusmjeravamo na taj url
+                    if (!String.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                        return Redirect(returnUrl);
+
+                    return RedirectToAction("Index", "Home");
                 }
             }
-            ModelState.AddModelError("", "Neispravno korisnicko ime ili lozinka");
+
+            ModelState.AddModelError("", "Neispravno korisničko ime ili lozinka");
             return View(model);
         }
 
@@ -122,27 +102,6 @@ namespace FilmHub.Controllers
             return View(korisnik);
         }
 
-        // GET: Korisniks/Create
-        public ActionResult Create()
-        {
-            ViewBag.SifraOvlasti = new SelectList(bazaPodataka.PopisOvlasti, "Sifra", "Naziv");
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "KorisnickoIme,Email,Lozinka,Prezime,Ime,SifraOvlasti")] Korisnik korisnik)
-        {
-            if (ModelState.IsValid)
-            {
-                bazaPodataka.PopisKorisnika.Add(korisnik);
-                bazaPodataka.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.SifraOvlasti = new SelectList(bazaPodataka.PopisOvlasti, "Sifra", "Naziv", korisnik.SifraOvlasti);
-            return View(korisnik);
-        }
 
         // GET: Korisniks/Edit/5
         public ActionResult Edit(string id)
@@ -200,11 +159,55 @@ namespace FilmHub.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
-        [AllowAnonymous]
         
 
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult Register()
+        {
+            return View();
+        }
 
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult Register(Korisnik model)
+        {
+            if (!String.IsNullOrWhiteSpace(model.KorisnickoIme))
+            {
+                var korImeZauzeto = bazaPodataka.PopisKorisnika.Any(x => x.KorisnickoIme == model.KorisnickoIme);
+                if (korImeZauzeto)
+                {
+                    ModelState.AddModelError("KorisnickoIme", "Korisničko ime je već zauzeto");
+                }
+            }
+            if (!String.IsNullOrWhiteSpace(model.Email))
+            {
+                var emailZauzet = bazaPodataka.PopisKorisnika.Any(x => x.Email == model.Email);
+                if (emailZauzet)
+                {
+                    ModelState.AddModelError("Email", "Email je već zauzet");
+                }
+            }
+
+            if (ModelState.IsValid)
+            {
+                model.Lozinka = Misc.PasswordHelper.IzracunajHash(model.LozinkaUnos);
+                model.SifraOvlasti = "MO";
+
+                bazaPodataka.PopisKorisnika.Add(model);
+                bazaPodataka.SaveChanges();
+
+                return View("RegistracijaOk");
+            }
+
+            var ovlasti = bazaPodataka.PopisOvlasti.OrderBy(x => x.Naziv).ToList();
+            ViewBag.Ovlasti = ovlasti;
+
+            return View(model);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
         protected override void Dispose(bool disposing)
         {
             if (disposing)

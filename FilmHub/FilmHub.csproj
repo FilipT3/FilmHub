@@ -288,7 +288,6 @@
     <Compile Include="Misc\LogiraniKorisnikSerializeModel.cs" />
     <Compile Include="Misc\PasswordHelper.cs" />
     <Compile Include="Models\BazaDbContext.cs" />
-    <Compile Include="Models\BazaDbFavoriti.cs" />
     <Compile Include="Models\Favoriti.cs" />
     <Compile Include="Models\Film.cs" />
     <Compile Include="Models\FilmoviDB.cs" />
@@ -366,7 +365,6 @@
     <Content Include="Views\Korisnici\Prijava.cshtml" />
     <Content Include="Views\Korisnici\Delete.cshtml" />
     <Content Include="Views\Korisnici\Edit.cshtml" />
-    <Content Include="Views\Korisnici\Create.cshtml" />
     <Content Include="Views\Korisnici\Details.cshtml" />
     <Content Include="Views\Korisnici\DeleteConfirmed.cshtml" />
     <Content Include="Views\Korisnici\Register.cshtml" />
@@ -374,6 +372,8 @@
     <Content Include="Views\KosaricaItems\Details.cshtml" />
     <Content Include="Views\KosaricaItems\Create.cshtml" />
     <Content Include="Views\KosaricaItems\Delete.cshtml" />
+    <Content Include="Views\Korisnici\RegistracijaOk.cshtml" />
+    <Content Include="Views\Filmovi\Favoriti.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

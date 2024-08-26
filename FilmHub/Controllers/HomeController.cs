@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FilmHub.Misc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,6 +11,12 @@ namespace FilmHub.Controllers
     {
         public ActionResult Index()
         {
+            LogiraniKorisnik logKor = User as LogiraniKorisnik;
+            if (logKor != null)
+            {
+                ViewBag.Logirani = logKor.KorisnickoIme;
+            }
+
             return View();
         }
 

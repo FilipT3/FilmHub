@@ -46,7 +46,7 @@ namespace FilmHub.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult Popis(string naziv, string opis)
+        public ActionResult Popis(string naziv)
         {
             var filmovi = bazaPodataka.PopisFilmova.AsQueryable();
 
@@ -87,7 +87,8 @@ namespace FilmHub.Controllers
 
         }
 
-        
+
+
 
 
         public ActionResult Azuriraj(int? id)

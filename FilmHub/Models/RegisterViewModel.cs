@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace FilmHub.Models
-{
-    public class RegisterViewModel
+{ 
+    /*public class RegisterViewModel
     {
         [Required(ErrorMessage = "Korisničko ime je obavezno")]
         [Display(Name = "Korisničko ime")]
@@ -30,5 +30,5 @@ namespace FilmHub.Models
         [Display(Name = "Potvrdi lozinku")]
         [Compare("Lozinka", ErrorMessage = "Lozinke se ne poklapaju.")]
         public string PotvrdiLozinku { get; set; }
-    }
+    }*/
 }

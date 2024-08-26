@@ -1,10 +1,9 @@
 ﻿@model FilmHub.Models.KorisnikPrijava
 @{
-    ViewBag.Title = "Prijava";
+    ViewBag.Title = "Prijava korisnika";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Prijava</h2>
 @using (Html.BeginForm("Prijava", "Korisnici", new { returnUrl = ViewBag.ReturnUrl }, FormMethod.Post, null))
 {
     @Html.AntiForgeryToken()

@@ -41,14 +41,10 @@
                                 @Html.ActionLink("Ažuriraj", "Azuriraj", new { id = film.Id }, new { @class = "btn btn-warning btn-outline" })
                                 @Html.ActionLink("Izbriši", "Brisi", new { id = film.Id }, new { @class = "btn btn-danger btn-outline" })
                             }
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                                <a href="@Url.Action("DodajUKosaricu", "KosaricaItems", new { id = film.Id })" class="btn btn-heart btn-outline"><i class="fas fa-heart"></i></a>
-                            }
-                            else
-                            {
-                                <a href="@Url.Action("Prijava", "Korisnici")" class="btn btn-heart btn-outline"><i class="fas fa-heart"></i></a>
-                            }
+
+                            <a href="@Url.Action("DodajUKosaricu", "KosaricaItems", new { id = film.Id })" class="btn btn-heart btn-outline"><i class="fas fa-heart"></i></a>
+
+
                         </div>
                     </div>
                 </div>

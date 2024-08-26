@@ -1,24 +1,22 @@
-﻿@model IEnumerable<FilmHub.Models.Korisnik>
+﻿@using FilmHub.Models
+@model IEnumerable<FilmHub.Models.Korisnik>
 
 @{
-    ViewBag.Title = "Prikaz korisnika";
+    ViewBag.Title = "Popis korisnika";
     Layout = "~/Views/Shared/_Layout.cshtml"; // Pretpostavka da koristite Layout za celu aplikaciju
 }
 
 <h2>Prikaz korisnika</h2>
 
-<p>
-    @Html.ActionLink("Kreiraj novog korisnika", "Create", null, new { @class = "btn btn-primary" })
-</p>
 
 <div class="table-responsive">
     <table class="table table-striped table-bordered">
         <thead>
             <tr>
-                <th>Ovlast</th>
+                <th>Korisničko ime</th>
                 <th>Email</th>
-                <th>Prezime</th>
-                <th>Ime</th>
+                <th>Prezime i ime</th>
+                <th>Ovlast</th>
                 <th></th>
             </tr>
         </thead>
@@ -26,10 +24,10 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>@Html.DisplayFor(modelItem => item.Ovlast.Naziv)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Email)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Prezime)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Ime)</td>
+                    <td>@item.KorisnickoIme</td>
+                    <td>@item.Email</td>
+                    <td>@item.PrezimeIme</td>
+                    <td>@(item.Ovlast?.Naziv)</td>
                     <td>
                         @Html.ActionLink("Uredi", "Edit", new { id = item.KorisnickoIme }, new { @class = "btn btn-primary btn-sm" })
                         @Html.ActionLink("Detalji", "Details", new { id = item.KorisnickoIme }, new { @class = "btn btn-info btn-sm" })

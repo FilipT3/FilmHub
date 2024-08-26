@@ -13,41 +13,27 @@ using FilmHub.Data;
 
 namespace FilmHub.Controllers
 {
-    [Authorize(Roles = OvlastiKorisnik.Administrator)]
     public class KosaricaItemsController : Controller
     {
         BazaDbContext bazaPodataka = new BazaDbContext();
-        BazaDbFavoriti bazaFavorita = new BazaDbFavoriti();
 
 
         [AllowAnonymous]
         // GET: KosaricaItems
         public ActionResult Index()
         {
-            return View(bazaFavorita.PopisFavorita.ToList());
+            return View(bazaPodataka.PopisFilmova.ToList());
         }
 
-        // GET: KosaricaItems/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Favoriti favoriti = bazaFavorita.PopisFavorita.FirstOrDefault(x => x.Id == id);
-            if (favoriti == null)
-            {
-                return HttpNotFound();
-            }
-            return View(favoriti);
-        }
+       
+
+        
+        
 
         [AllowAnonymous]
         public ActionResult DodajUKosaricu(int id)
         {
-            /*if (id == null) { 
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }*/
+            
 
             Film film = bazaPodataka.PopisFilmova.Find(id);
 
@@ -55,10 +41,12 @@ namespace FilmHub.Controllers
             {
                 return HttpNotFound();
             }
-
-            Favoriti favItem = new Favoriti { Id = id, Naslov = film.Naslov , Kategorija = film.Kategorija , Godina = film.Godina };
-            bazaFavorita.PopisFavorita.Add(favItem);
-            bazaFavorita.SaveChanges();
+            else
+            {
+                Favoriti favItem = new Favoriti { Id = id, Naslov = film.Naslov, Kategorija = film.Kategorija, Godina = film.Godina };
+                bazaPodataka.PopisFavorita.Add(favItem);
+                bazaPodataka.SaveChanges();
+            }
             return RedirectToAction("Index");
         }
 
@@ -78,12 +66,26 @@ namespace FilmHub.Controllers
         {
             if (ModelState.IsValid)
             {
-                bazaFavorita.PopisFavorita.Add(FavIt);
-                bazaFavorita.SaveChanges();
+                bazaPodataka.PopisFavorita.Add(FavIt);
+                bazaPodataka.SaveChanges();
                 return RedirectToAction("Index");
             }
 
             return View(FavIt);
+        }
+
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Favoriti favoriti = bazaPodataka.PopisFavorita.FirstOrDefault(x => x.Id == id);
+            if (favoriti == null)
+            {
+                return HttpNotFound();
+            }
+            return View(favoriti);
         }
 
         [AllowAnonymous]
@@ -94,7 +96,7 @@ namespace FilmHub.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Favoriti FAvIt = bazaFavorita.PopisFavorita.FirstOrDefault(x => x.Id == id);
+            Favoriti FAvIt = bazaPodataka.PopisFavorita.FirstOrDefault(x => x.Id == id);
             if (FAvIt == null)
             {
                 return HttpNotFound();
@@ -108,9 +110,9 @@ namespace FilmHub.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Favoriti FAvIt = bazaFavorita.PopisFavorita.FirstOrDefault(x => x.Id == id);
-            bazaFavorita.PopisFavorita.Remove(FAvIt);
-            bazaFavorita.SaveChanges();
+            Favoriti FAvIt = bazaPodataka.PopisFavorita.FirstOrDefault(x => x.Id == id);
+            bazaPodataka.PopisFavorita.Remove(FAvIt);
+            bazaPodataka.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -118,7 +120,7 @@ namespace FilmHub.Controllers
         {
             if (disposing)
             {
-                bazaFavorita.Dispose();
+                bazaPodataka.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -150,14 +152,14 @@ namespace FilmHub.Controllers
         [AllowAnonymous]
         public ActionResult ObrisiKosaricu()
         {
-            var listaFavorita = bazaFavorita.PopisFavorita.ToList();
+            var listaFavorita = bazaPodataka.PopisFavorita.ToList();
 
             foreach (var f in listaFavorita)
             {
-                bazaFavorita.PopisFavorita.Remove(f);
+                bazaPodataka.PopisFavorita.Remove(f);
             }
 
-            bazaFavorita.SaveChanges();
+            bazaPodataka.SaveChanges();
 
             return RedirectToAction("Index");
         }

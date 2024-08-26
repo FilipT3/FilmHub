@@ -20,7 +20,7 @@
             <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
                     <li>@Html.ActionLink("Filmovi", "Popis", "Filmovi", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Favoriti", "Index", "KosaricaItems", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Favoriti", "Favoriti", "Filmovi", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Tražilica", "Trazilica", "Filmovi", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Novosti", "Novosti", "Filmovi", new { area = "" }, new { @class = "nav-link" })</li>
 
@@ -40,10 +40,7 @@
                     else
                     {
                         <li>@Html.ActionLink("Prijava", "Prijava", "Korisnici", new { area = "" }, new { @class = "nav-link" })</li>
-                        <li>@Html.ActionLink("Registracija", "Register", "Korisnici", new { area = "" }, new { @class = "nav-link" })</li>
-
-
-
+                        //<li>@Html.ActionLink("Registracija", "Register", "Korisnici", new { area = "" }, new { @class = "nav-link" })</li>
                     }
                 </ul>
             </div>

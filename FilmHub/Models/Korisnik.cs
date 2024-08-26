@@ -13,7 +13,7 @@ namespace FilmHub.Models
         [Key]
         [Column("korisnicko_ime")]
         [Display(Name ="Korisničko ime")]
-        [Required(ErrorMessage = "Ovo polje je obavezno")]
+        [Required(ErrorMessage = "Korisničko ime je obavezno")]
         public string KorisnickoIme { get; set; }
 
         [Column("email")]
@@ -24,7 +24,7 @@ namespace FilmHub.Models
 
         [Column("lozinka")]
         [Display(Name = "Lozinka")]
-        [Required(ErrorMessage = "Ovo polje je obavezno")]
+        [Required(ErrorMessage = "Lozinka je obavezna")]
         public string Lozinka { get; set; }
 
         [Column("prezime")]
@@ -47,11 +47,8 @@ namespace FilmHub.Models
 
         [Column("ovlast")]
         [Display(Name = "Ovlast")]
-        [Required(ErrorMessage = "Ovo polje je obavezno")]
         [ForeignKey("Ovlast")]
         public string SifraOvlasti { get; set; }
-
-        [Display(Name = "Ovlast")]
         public virtual Ovlast Ovlast { get; set; }
 
         [Display(Name = "Lozinka")]
@@ -60,7 +57,7 @@ namespace FilmHub.Models
         [NotMapped]
         public string LozinkaUnos { get; set; }
 
-        [Display(Name = "Lozinka ponovljena")]
+        [Display(Name = "Potvrdi lozinku")]
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "Ovo polje je obavezno")]
         [NotMapped]

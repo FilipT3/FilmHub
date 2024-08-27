@@ -19,11 +19,6 @@ textarea {
     max-width: 280px;
 }
 
-
-
-
-
-
 .field-validation-error{
     color: #f00;
 }
@@ -35,4 +30,5 @@ textarea {
 
 .input-validation-error{
     border: 2px solid #f00;
+    background-color: #fee;
 }

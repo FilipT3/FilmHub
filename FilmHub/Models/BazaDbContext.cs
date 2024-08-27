@@ -16,5 +16,7 @@ namespace FilmHub.Data
         public DbSet<Ovlast> PopisOvlasti { get; set; }
         public DbSet<Favoriti> PopisFavorita { get; set; }
 
+        public DbSet<Novost> PopisNovosti { get; set; }
+
     }
 }

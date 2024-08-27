@@ -1,0 +1,12 @@
+﻿@using FilmHub.Models
+@model  Novost
+@{
+    ViewBag.Title = "Detalji";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Naslov</h2>
+
+@Model.Opis <br />
+@Model.DatumUnosa.ToString("dd.MM.yyyy") <br />
+

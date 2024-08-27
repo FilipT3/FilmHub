@@ -25,11 +25,12 @@
                     <li>@Html.ActionLink("Filmovi", "Popis", "Filmovi", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Favoriti", "Favoriti", "Filmovi", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Tražilica", "Trazilica", "Filmovi", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Novosti", "Novosti", "Filmovi", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Novosti", "Popis", "Novosti", new { area = "" }, new { @class = "nav-link" })</li>
 
                     @if (User.Identity.IsAuthenticated && (User as LogiraniKorisnik).IsInRole(OvlastiKorisnik.Administrator))
                     {
                         <li>@Html.ActionLink("Novi film", "Azuriraj", "Filmovi", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Nova obavjest", "Azuriraj", "Novosti", new { area = "" }, new { @class = "nav-link" })</li>
                         <li>@Html.ActionLink("Korisnici", "Index", "Korisnici", new { area = "" }, new { @class = "nav-link" })</li>
                     }
 

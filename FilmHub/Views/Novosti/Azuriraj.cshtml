@@ -1,0 +1,63 @@
+﻿@using FilmHub.Models
+@model Novost
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (ViewBag.Novi)
+{
+    <h2>Unos novosti</h2>
+}
+else
+{
+    <h2>Ažuriranje: @Model.Naslov</h2>
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "Ispravite podatke!");
+
+<table>
+    @if (!ViewBag.Novi)
+    {
+        <tr>
+            <td>@Html.LabelFor(model => model.Id) </td>
+            <td>@Html.TextBoxFor(model => model.Id, new { disabled = true }) </td>
+        </tr>
+    }
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.Naslov)
+        </td>
+        <td>
+            @Html.TextBoxFor(model => model.Naslov)
+            @Html.ValidationMessageFor(model => model.Naslov)
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.Opis)
+        </td>
+        <td>
+            @Html.TextBoxFor(model => model.Opis)
+            @Html.ValidationMessageFor(model => model.Opis)
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.DatumUnosa)
+        </td>
+        <td>
+            @Html.TextBoxFor(model => model.DatumUnosa)
+            @Html.ValidationMessageFor(model => model.DatumUnosa)
+        </td>
+    </tr>
+</table>
+
+    <p> <input type="submit" value="Spremi" /> </p>
+    @Html.ActionLink("Povratak bez spremanja", "Popis", "Novosti");
+}
+

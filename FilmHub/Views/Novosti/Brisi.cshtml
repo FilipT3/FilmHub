@@ -1,0 +1,21 @@
+﻿@using FilmHub.Models
+@model Novost
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Potvrda o brisanju novosti!</h2>
+
+Jeste li sigurni kako želite obrisati novost @Model.Naslov ?
+
+@using (Html.BeginForm("Brisi", "Novosti"))
+            {
+                @Html.AntiForgeryToken();
+
+    <input type="submit" value="Izbriši" />
+    <br />
+    <br />
+
+    @Html.ActionLink("Odustani", "Popis");
+            }
+

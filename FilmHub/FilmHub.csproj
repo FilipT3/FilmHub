@@ -280,6 +280,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KorisniciController.cs" />
     <Compile Include="Controllers\KosaricaItemsController.cs" />
+    <Compile Include="Controllers\NovostiController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -294,6 +295,8 @@
     <Compile Include="Models\Kategorija.cs" />
     <Compile Include="Models\Korisnik.cs" />
     <Compile Include="Models\KorisnikPrijava.cs" />
+    <Compile Include="Models\Novost.cs" />
+    <Compile Include="Models\NovostiDB.cs" />
     <Compile Include="Models\Ovlast.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -374,6 +377,11 @@
     <Content Include="Views\KosaricaItems\Delete.cshtml" />
     <Content Include="Views\Korisnici\RegistracijaOk.cshtml" />
     <Content Include="Views\Filmovi\Favoriti.cshtml" />
+    <Content Include="Views\Novosti\Popis.cshtml" />
+    <Content Include="Views\Novosti\Detalji.cshtml" />
+    <Content Include="Views\Novosti\Azuriraj.cshtml" />
+    <Content Include="Views\Novosti\Brisi.cshtml" />
+    <Content Include="Views\Novosti\BrisiStatus.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

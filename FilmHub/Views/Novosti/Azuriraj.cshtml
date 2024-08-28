@@ -4,60 +4,100 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@if (ViewBag.Novi)
-{
-    <h2>Unos novosti</h2>
-}
-else
-{
-    <h2>Ažuriranje: @Model.Naslov</h2>
-}
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+    
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="form-container">
+            @if (ViewBag.Novi)
+            {
+                <h2>Unos novosti</h2>
+            }
+            else
+            {
+                <h2>Ažuriranje: @Model.Naslov</h2>
+            }
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true, "Ispravite podatke!");
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "Ispravite podatke!", new { @class = "alert alert-danger" })
 
-<table>
-    @if (!ViewBag.Novi)
-    {
-        <tr>
-            <td>@Html.LabelFor(model => model.Id) </td>
-            <td>@Html.TextBoxFor(model => model.Id, new { disabled = true }) </td>
-        </tr>
+                <div class="form-group">
+                    @if (!ViewBag.Novi)
+                    {
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Id)
+                            @Html.TextBoxFor(model => model.Id, new { @class = "form-control", disabled = true })
+                            @Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })
+                        </div>
+                    }
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Naslov)
+                    @Html.TextBoxFor(model => model.Naslov, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Naslov, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Opis)
+                    @Html.TextAreaFor(model => model.Opis, new { @class = "form-control", rows = "5" })
+                    @Html.ValidationMessageFor(model => model.Opis, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DatumUnosa)
+                    @Html.TextBoxFor(model => model.DatumUnosa, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.DatumUnosa, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-actions">
+                    <input type="submit" value="Spremi" class="btn btn-primary" />
+                    @Html.ActionLink("Povratak bez spremanja", "Popis", "Novosti", new { @class = "btn btn-secondary" })
+                </div>
+            }
+        </div>
+    </div>
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+<style>
+    .form-container {
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 2rem;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #f9f9f9;
     }
-    <tr>
-        <td>
-            @Html.LabelFor(model => model.Naslov)
-        </td>
-        <td>
-            @Html.TextBoxFor(model => model.Naslov)
-            @Html.ValidationMessageFor(model => model.Naslov)
-        </td>
-    </tr>
 
-    <tr>
-        <td>
-            @Html.LabelFor(model => model.Opis)
-        </td>
-        <td>
-            @Html.TextBoxFor(model => model.Opis)
-            @Html.ValidationMessageFor(model => model.Opis)
-        </td>
-    </tr>
+        .form-container h2 {
+            margin-bottom: 1.5rem;
+        }
 
-    <tr>
-        <td>
-            @Html.LabelFor(model => model.DatumUnosa)
-        </td>
-        <td>
-            @Html.TextBoxFor(model => model.DatumUnosa)
-            @Html.ValidationMessageFor(model => model.DatumUnosa)
-        </td>
-    </tr>
-</table>
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
 
-    <p> <input type="submit" value="Spremi" /> </p>
-    @Html.ActionLink("Povratak bez spremanja", "Popis", "Novosti");
-}
+        .form-group label {
+            font-weight: bold;
+        }
 
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+        }
+
+    .form-actions {
+        margin-top: 2rem;
+    }
+</style>

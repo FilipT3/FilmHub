@@ -1,12 +1,61 @@
 ﻿@using FilmHub.Models
-@model  Novost
+@model Novost
 @{
     ViewBag.Title = "Detalji";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@Model.Naslov</h2>
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
 
-@Model.Opis <br />
-@Model.DatumUnosa.ToString("dd.MM.yyyy") <br />
+</head>
+<body>
+    <div class="container">
+        <div class="details-container">
+            <h2 class="details-title">@Model.Naslov</h2>
+            <p class="details-content">@Model.Opis</p>
+            <p class="details-date">Objavljeno: @Model.DatumUnosa.ToString("dd.MM.yyyy")</p>
+            <a href="@Url.Action("Popis", "Novosti")" class="btn btn-info back-button">Natrag</a>
+        </div>
+    </div>
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+<style>
+    .details-container {
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 2rem;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #f9f9f9;
+    }
 
+    .details-title {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    .details-content {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+    }
+
+    .details-date {
+        font-size: 0.9rem;
+        color: #666;
+        margin-bottom: 2rem;
+    }
+
+    .back-button {
+        text-decoration: none;
+        font-weight: bold;
+    }
+</style>

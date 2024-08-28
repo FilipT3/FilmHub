@@ -156,10 +156,11 @@ namespace FilmHub.Controllers
             Korisnik korisnik = bazaPodataka.PopisKorisnika.Find(id);
             bazaPodataka.PopisKorisnika.Remove(korisnik);
             bazaPodataka.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("DeleteConfirmed");
         }
 
-        
+       
+
 
         [HttpGet]
         [AllowAnonymous]

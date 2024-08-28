@@ -4,17 +4,24 @@
 }
 
 <div class="container mt-4">
-    <h2>Podaci uspješno izbrisani</h2>
-
-    @Html.ActionLink("Povratak na popis filmova", "Popis", null, new { @class = "btn btn-primary mt-4" })
+    <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading">Podaci uspješno izbrisani!</h4>
+        <p>Filmovi su uspješno obrisani iz baze podataka. Možete se vratiti na popis filmova za daljnje radnje.</p>
+        <a class="btn btn-primary" href="@Url.Action("Popis", "Filmovi")">Povratak na popis filmova</a>
+    </div>
 </div>
 
 <style>
+    .alert-heading {
+        font-size: 1.5rem; /* 24px */
+        margin-bottom: 0.5rem; /* 8px */
+    }
+
     .btn {
-        padding: 10px 20px;
+        padding: 0.5rem 1rem; /* 10px 20px */
     }
 
     .mt-4 {
-        margin-top: 20px;
+        margin-top: 1.5rem; /* 24px */
     }
 </style>

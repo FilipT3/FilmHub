@@ -11,8 +11,9 @@ namespace FilmHub.Models
     [Table("favoriti")]
     public class Favoriti
     {
-        [Key]
         [Column("id")]
+        [Key]
+        [Required]
         [Display(Name = "ID filma")]
         public int Id { get; set; }
 

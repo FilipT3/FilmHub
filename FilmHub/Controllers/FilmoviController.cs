@@ -155,6 +155,7 @@ namespace FilmHub.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Film f = bazaPodataka.PopisFilmova.FirstOrDefault(x => x.Id == id);
+
             if (f == null)
             {
                 return HttpNotFound();

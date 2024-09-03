@@ -27,6 +27,7 @@ namespace FilmHub.Models
         public string Produkcija { get; set; }
 
         [Column("kategorija")]
+        [Required(ErrorMessage = "Ovo polje je obavezno")]
         [Display(Name = "Kategorija")]
         public  Kategorija Kategorija { get; set; }
 

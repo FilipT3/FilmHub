@@ -363,7 +363,6 @@
     <Content Include="Views\Filmovi\Brisi.cshtml" />
     <Content Include="Views\Filmovi\BrisiStatus.cshtml" />
     <Content Include="Views\Filmovi\Trazilica.cshtml" />
-    <Content Include="Views\Filmovi\Novosti.cshtml" />
     <Content Include="Views\Korisnici\Index.cshtml" />
     <Content Include="Views\Korisnici\Prijava.cshtml" />
     <Content Include="Views\Korisnici\Delete.cshtml" />
@@ -376,12 +375,13 @@
     <Content Include="Views\KosaricaItems\Create.cshtml" />
     <Content Include="Views\KosaricaItems\Delete.cshtml" />
     <Content Include="Views\Korisnici\RegistracijaOk.cshtml" />
-    <Content Include="Views\Filmovi\Favoriti.cshtml" />
     <Content Include="Views\Novosti\Popis.cshtml" />
     <Content Include="Views\Novosti\Detalji.cshtml" />
     <Content Include="Views\Novosti\Azuriraj.cshtml" />
     <Content Include="Views\Novosti\Brisi.cshtml" />
     <Content Include="Views\Novosti\BrisiStatus.cshtml" />
+    <Content Include="Views\KosaricaItems\DeleteStatus.cshtml" />
+    <Content Include="Views\KosaricaItems\DeleteStatusAll.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,40 +1,61 @@
-﻿@using FilmHub.Models
+﻿
+@using FilmHub.Models
 @model Film
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container mt-4">
-    <div class="card">
-        <div class="card-header bg-danger text-white">
-            <h2>@ViewBag.Title</h2>
-        </div>
-        <div class="card-body">
-            <p class="confirmation-message">Jeste li sigurni da želite obrisati film <strong>@Model.Naslov</strong>?</p>
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Potvrda brisanja</title>
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
 
-            @using (Html.BeginForm("Brisi", "Filmovi", FormMethod.Post, new { @class = "delete-form" }))
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="confirmation-container">
+            <h2>Potvrda o brisanju novosti!</h2>
+            <p>Jeste li sigurni da želite obrisati "<strong>@Model.Naslov</strong>"?</p>
+
+            @using (Html.BeginForm("Brisi", "Filmovi", FormMethod.Post))
             {
                 @Html.AntiForgeryToken()
-
                 <button type="submit" class="btn btn-danger">Izbriši</button>
-                @Html.ActionLink("Odustani", "Popis", "Filmovi", null, new { @class = "btn btn-secondary" })
+                <a href="@Url.Action("Popis", "Filmovi")" class="btn btn-secondary">Odustani</a>
             }
         </div>
     </div>
-</div>
-
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+</body>
+</html>
 <style>
-    .confirmation-message {
-        font-size: 1.125rem; /* 18px */
-        margin-bottom: 1.5rem; /* 20px */
+    .confirmation-container {
+        max-width: 600px;
+        margin: 2rem auto;
+        padding: 2rem;
+        border: 1px solid #dee2e6;
+        border-radius: 0.375rem;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        background-color: #ffffff;
+        text-align: center;
     }
 
-    .delete-form {
-        display: flex;
-        gap: 0.5rem; /* Space between buttons */
-    }
+        .confirmation-container h2 {
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
 
-    .btn {
-        padding: 0.5rem 1rem; /* 10px 20px */
-    }
+        .confirmation-container p {
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .confirmation-container .btn {
+            margin: 0.5rem;
+        }
 </style>
+

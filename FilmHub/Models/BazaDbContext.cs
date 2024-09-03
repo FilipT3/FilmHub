@@ -18,5 +18,11 @@ namespace FilmHub.Data
 
         public DbSet<Novost> PopisNovosti { get; set; }
 
+        public void ObrisiFavorite()
+        {
+            this.PopisFavorita.RemoveRange(this.PopisFavorita);
+            this.SaveChanges();
+        }
+
     }
 }

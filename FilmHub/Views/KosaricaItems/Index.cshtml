@@ -1,10 +1,19 @@
-﻿@model IEnumerable<FilmHub.Models.Favoriti>
+﻿@using FilmHub.Models
+@model List<FilmHub.Models.Favoriti>
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Košarica</h2>
+@if (TempData["Poruka"] != null)
+{
+    <div class="alert alert-info">
+        @TempData["Poruka"]
+    </div>
+}
+
+
+<h2>Popis favorita</h2>
 
 
 <table class="table">
@@ -22,8 +31,8 @@
             <td>@item.Kategorija</td>
             <td>@item.Godina</td>
 
-            <td>
-                @Html.ActionLink("Izbrisi", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+            <td class="text-center">
+                @Html.ActionLink("Obriši", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
             </td>
         </tr>
     }
@@ -31,14 +40,14 @@
 
 </table>
 <div style="display:flex; flex-flow:row">
-    <a href="@Url.Action("IspisFavorita", "PopisFavorita", new {Naslov = ViewBag.Naslov, Kategorija = ViewBag.Kategorija, Godina = ViewBag.Godina})" class="btn btn-primary">
-        <span class="glyphicon glyphicon-print" aria-hidden="true"></span>Ispis
+    <a href="@Url.Action("IspisFavorita", "KosaricaItems", new {Naslov = ViewBag.Naslov, Kategorija = ViewBag.Kategorija, Godina = ViewBag.Godina})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-print" aria-hidden="true"></span>Ispis favorita
     </a>
-    <a href="@Url.Action("Index", "Home")" class="btn btn-secondary">
-        <span class="glyphicon glyphicon-print" aria-hidden="true"></span>Natrag na popis filmova
+    <a href="@Url.Action("Popis", "Filmovi")" class="btn btn-secondary">
+        <span class="glyphicon glyphicon-print" aria-hidden="true"></span>Nazad na popis filmova
     </a>
-    <a href="@Url.Action("ObrisiKosaricu", "PopisFavorita")" class="btn btn-danger">
-        <span class="glyphicon glyphicon-print" aria-hidden="true"></span>Obriši favorite
+    <a href="@Url.Action("ObrisiKosaricu", "KosaricaItems")" class="btn btn-danger">
+        <span class="glyphicon glyphicon-print" aria-hidden="true"></span>Obriši popis
     </a>
 </div>
 

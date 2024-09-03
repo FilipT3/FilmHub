@@ -154,6 +154,9 @@ namespace FilmHub.Controllers
         public ActionResult DeleteConfirmed(string id)
         {
             Korisnik korisnik = bazaPodataka.PopisKorisnika.Find(id);
+
+            if (korisnik == null) { return HttpNotFound(); }
+
             bazaPodataka.PopisKorisnika.Remove(korisnik);
             bazaPodataka.SaveChanges();
             return RedirectToAction("DeleteConfirmed");

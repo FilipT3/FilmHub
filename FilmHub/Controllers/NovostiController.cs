@@ -20,7 +20,7 @@ namespace FilmHub.Controllers
 
         public ActionResult Popis()
         {
-            var novosti = bazaPodataka.PopisNovosti.ToList();
+            var novosti = bazaPodataka.PopisNovosti.OrderByDescending(n => n.DatumUnosa).ToList();
             return View(novosti);
         }
 
@@ -84,6 +84,7 @@ namespace FilmHub.Controllers
 
                 else
                 {
+                    n.DatumUnosa = n.DatumUnosa ?? DateTime.Now;
                     bazaPodataka.PopisNovosti.Add(n);
                 }
                 bazaPodataka.SaveChanges();
@@ -109,6 +110,7 @@ namespace FilmHub.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Novost n = bazaPodataka.PopisNovosti.FirstOrDefault(x => x.Id == id);
+
             if (n == null)
             {
                 return HttpNotFound();

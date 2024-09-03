@@ -7,6 +7,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Script.Serialization;
 using System.Web.Security;
+using FilmHub.Data;
 using FilmHub.Misc;
 
 namespace FilmHub
@@ -19,6 +20,12 @@ namespace FilmHub
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            using (var context = new BazaDbContext())
+            {
+                context.PopisFavorita.RemoveRange(context.PopisFavorita);
+                context.SaveChanges();
+            }
         }
         protected void Application_PostAuthenticateRequest(Object sender, EventArgs e)
         {

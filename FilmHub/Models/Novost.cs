@@ -25,10 +25,10 @@ namespace FilmHub.Models
 
         [Column("datum_rodenja")]
         [Display(Name = "Datum Unosa")]
-        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "{0} je obavezan")]
         [DataType(DataType.Date)]
-        public DateTime DatumUnosa { get; set; }
+        public DateTime? DatumUnosa { get; set; }
 
     }
 }

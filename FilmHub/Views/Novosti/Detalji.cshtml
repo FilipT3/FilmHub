@@ -19,7 +19,7 @@
         <div class="details-container">
             <h2 class="details-title">@Model.Naslov</h2>
             <p class="details-content">@Model.Opis</p>
-            <p class="details-date">Objavljeno: @Model.DatumUnosa.ToString("dd.MM.yyyy")</p>
+            <p class="details-date">Objavljeno: @Model.DatumUnosa.Value.ToString("dd.MM.yyyy")</p>
             <a href="@Url.Action("Popis", "Novosti")" class="btn btn-info back-button">Natrag</a>
         </div>
     </div>

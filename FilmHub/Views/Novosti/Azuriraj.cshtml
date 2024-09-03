@@ -18,7 +18,7 @@
         <div class="form-container">
             @if (ViewBag.Novi)
             {
-                <h2>Unos novosti</h2>
+                <h2>Unos obavjesti</h2>
             }
             else
             {
@@ -54,8 +54,8 @@
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.DatumUnosa)
-                    @Html.TextBoxFor(model => model.DatumUnosa, new { @class = "form-control" })
+                    @Html.LabelFor(model => model.DatumUnosa, "Datum unosa")
+                    @Html.TextBoxFor(model => model.DatumUnosa, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
                     @Html.ValidationMessageFor(model => model.DatumUnosa, "", new { @class = "text-danger" })
                 </div>
 

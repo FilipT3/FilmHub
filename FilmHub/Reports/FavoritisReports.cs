@@ -27,7 +27,7 @@ namespace FilmHub.Reports
             return c1;
         }
 
-        public void ListaFilmovia(List<Film> favorit)
+        public void ListaFilmovia(List<Favoriti> favorit)
         {
             BaseFont bfontZaglavlje = BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1250, BaseFont.EMBEDDED);
             BaseFont bfontText = BaseFont.CreateFont(BaseFont.TIMES_ROMAN, BaseFont.CP1250, BaseFont.EMBEDDED);
@@ -78,20 +78,20 @@ namespace FilmHub.Reports
 
                     PdfPTable t = new PdfPTable(4);
                     t.WidthPercentage = 100;
-                    t.SetWidths(new float[] { 1, 4, 4, 1 });
+                    t.SetWidths(new float[] { 1, 4, 3, 1 });
 
                     t.AddCell(GenerirajCeliju("Red. br.", fontTablicaZaglavlje, tPozadinaZaglavlje, true));
                     t.AddCell(GenerirajCeliju("Naslov", fontTablicaZaglavlje, tPozadinaZaglavlje, true));
-                    t.AddCell(GenerirajCeliju("glumci", fontTablicaZaglavlje, tPozadinaZaglavlje, true));
+                    t.AddCell(GenerirajCeliju("Kategorija", fontTablicaZaglavlje, tPozadinaZaglavlje, true));
                     t.AddCell(GenerirajCeliju("Godina", fontTablicaZaglavlje, tPozadinaZaglavlje, true));
 
 
                     int i = 1;
-                    foreach (Film k in favorit)
+                    foreach (Favoriti k in favorit)
                     {
                         t.AddCell(GenerirajCeliju(i.ToString() + ".", fontText, tPozadinaSadrzaj, true));
                         t.AddCell(GenerirajCeliju(k.Naslov, fontText, tPozadinaSadrzaj, true));
-                        t.AddCell(GenerirajCeliju(k.Glumci, fontText, tPozadinaSadrzaj, true));
+                        t.AddCell(GenerirajCeliju(k.Kategorija.ToString(), fontText, tPozadinaSadrzaj, true));
                         t.AddCell(GenerirajCeliju(k.Godina.ToString(), fontText, tPozadinaSadrzaj, true));
 
                         i++;

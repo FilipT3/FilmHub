@@ -22,19 +22,12 @@ namespace FilmHub.Controllers
         // GET: KosaricaItems
         public ActionResult Index()
         {
-            return View(bazaPodataka.PopisFilmova.ToList());
+            return View(bazaPodataka.PopisFavorita.ToList());
         }
-
-       
-
-        
-        
 
         [AllowAnonymous]
         public ActionResult DodajUKosaricu(int id)
         {
-            
-
             Film film = bazaPodataka.PopisFilmova.Find(id);
 
             if (film == null)
@@ -43,12 +36,29 @@ namespace FilmHub.Controllers
             }
             else
             {
-                Favoriti favItem = new Favoriti { Id = id, Naslov = film.Naslov, Kategorija = film.Kategorija, Godina = film.Godina };
-                bazaPodataka.PopisFavorita.Add(favItem);
-                bazaPodataka.SaveChanges();
+                bool filmAlreadyInFavorites = bazaPodataka.PopisFavorita.Any(f => f.Naslov == film.Naslov);
+
+                if (filmAlreadyInFavorites)
+                {
+                    TempData["Poruka"] = "Film je već u favoritima.";
+                }
+                else
+                {
+                    Favoriti favItem = new Favoriti
+                    {
+                        Id = id,
+                        Naslov = film.Naslov,
+                        Kategorija = film.Kategorija,
+                        Godina = film.Godina
+                    };
+                    bazaPodataka.PopisFavorita.Add(favItem);
+                    bazaPodataka.SaveChanges();
+                    TempData["Poruka"] = "Film je uspješno dodan u favorite.";
+                }
             }
             return RedirectToAction("Index");
         }
+
 
 
         // GET: KosaricaItems/Create
@@ -57,9 +67,6 @@ namespace FilmHub.Controllers
             return View();
         }
 
-        // POST: KosaricaItems/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Naslov,Kategorija,Godina")] Favoriti FavIt)
@@ -113,7 +120,7 @@ namespace FilmHub.Controllers
             Favoriti FAvIt = bazaPodataka.PopisFavorita.FirstOrDefault(x => x.Id == id);
             bazaPodataka.PopisFavorita.Remove(FAvIt);
             bazaPodataka.SaveChanges();
-            return RedirectToAction("Index");
+            return View("DeleteStatus");
         }
 
         protected override void Dispose(bool disposing)
@@ -125,26 +132,18 @@ namespace FilmHub.Controllers
             base.Dispose(disposing);
         }
 
+
         [AllowAnonymous]
-        public ActionResult IspisFilmova(string Naslov, string Glumci, string Godina, string Trajanje)
+        public ActionResult IspisFavorita(string Naslov)
         {
-            var filmovi = bazaPodataka.PopisFilmova.ToList();
+            var f = bazaPodataka.PopisFavorita.ToList();
 
             if (!String.IsNullOrEmpty(Naslov))
             {
-                filmovi = filmovi.Where(x => x.Naslov.ToUpper().Contains(Naslov.ToUpper())).ToList();
+                f = f.Where(x => x.Naslov.ToUpper().Contains(Naslov.ToUpper())).ToList();
             }
-            if (!String.IsNullOrEmpty(Glumci))
-            {
-                filmovi = filmovi.Where(x => x.Glumci.ToUpper().Contains(Glumci.ToUpper())).ToList();
-            }
-            if (!String.IsNullOrEmpty(Godina))
-            {
-                filmovi = filmovi.Where(x => x.Godina.ToString().Contains(Godina)).ToList();
-            }
-
             FavoritisReports favoritiReport = new FavoritisReports();
-            favoritiReport.ListaFilmovia(filmovi);
+            favoritiReport.ListaFilmovia(f);
 
             return File(favoritiReport.Podaci, System.Net.Mime.MediaTypeNames.Application.Pdf, "Favorit.pdf");
         }
@@ -161,7 +160,7 @@ namespace FilmHub.Controllers
 
             bazaPodataka.SaveChanges();
 
-            return RedirectToAction("Index");
+            return View("DeleteStatusAll");
         }
 
     }

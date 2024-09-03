@@ -23,7 +23,7 @@
             <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
                     <li>@Html.ActionLink("Filmovi", "Popis", "Filmovi", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Favoriti", "Favoriti", "Filmovi", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Favoriti", "Index", "KosaricaItems", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Tražilica", "Trazilica", "Filmovi", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Novosti", "Popis", "Novosti", new { area = "" }, new { @class = "nav-link" })</li>
 
@@ -32,6 +32,7 @@
                         <li>@Html.ActionLink("Novi film", "Azuriraj", "Filmovi", new { area = "" }, new { @class = "nav-link" })</li>
                         <li>@Html.ActionLink("Nova obavjest", "Azuriraj", "Novosti", new { area = "" }, new { @class = "nav-link" })</li>
                         <li>@Html.ActionLink("Korisnici", "Index", "Korisnici", new { area = "" }, new { @class = "nav-link" })</li>
+
                     }
 
                 </ul>
@@ -55,7 +56,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy;Međimursko veleučilište @DateTime.Now.Year - My ASP.NET Projket</p>
+            <p>&copy;Međimursko veleučilište @DateTime.Now.Year - Filip Tetec ASP.NET Projket</p>
         </footer>
     </div>
 
